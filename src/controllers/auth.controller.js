@@ -116,7 +116,7 @@ exports.registerUser = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Server error",
-      error: process.env.NODE_ENV === "development" ? error.message : undefined
+      error: error
     });
   }
 };
@@ -170,7 +170,7 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Server error",
-      error: process.env.NODE_ENV === "development" ? error.message : undefined
+      error: error
     });
   }
 };
