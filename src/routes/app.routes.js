@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user.controller');
 const authController = require('../controllers/auth.controller');
+const productController = require('../controllers/product.controller')
 
 // Get all users
 router.get('/', userController.getAllUsers);
@@ -27,6 +28,9 @@ router.get('/blog/:category_slug/:id',userController.blogContent)
 // Blog related images
 router.get("/related-posts", userController.blogRelatedImages);
 
-// 
+// Brand Product
+
+router.get("/brand-products", productController.brandProducts);
+
 
 module.exports = router; 
