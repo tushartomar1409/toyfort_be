@@ -109,3 +109,37 @@ exports.blogRelatedImages = async (req, res) => {
     });
   }
 };
+
+
+// Add to cart
+
+
+exports.addToCart = async (req, res) => {
+  try {
+    const { imageUrl, title, originalPrice, discountedPrice, slug } = req.body;
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized: No user ID found" });
+    }
+
+    const existingItems = await model.checkCartProduct(title, userId);
+
+    const result = await model.addToCart(
+      userId, imageUrl, title, originalPrice, discountedPrice, slug
+    );
+
+    return res.status(201).json({
+      message: "Product added successfully",
+      insertId: result.insertId,
+      result: existingItems,
+    });
+
+  } catch (error) {
+    console.error("Error adding product to cart:", error);
+    return res.status(500).json({
+      message: "Error in adding product to cart",
+      error: error.message,
+    });
+  }
+};

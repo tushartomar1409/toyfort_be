@@ -9,7 +9,15 @@ const blogImages = `SELECT bc.name as category_name, bc.slug as category_slug,YE
 const blogContent = `
   SELECT bc.name AS category_name,bc.slug AS category_slug,bp.id,bp.image_default,bp.content FROM blog_posts bp INNER JOIN blog_categories bc ON bp.category_id = bc.id WHERE bp.id = ? AND bc.slug = ? ORDER BY bp.created_at DESC`;
 
-const blogRelatedImages = `SELECT bc.name as category_name, bc.slug as category_slug,YEAR(bp.created_at) as year_val, MONTH(bp.created_at) as month_val, bp.* from blog_posts bp INNER JOIN blog_categories bc ON bp.category_id = bc.id ORDER BY RAND() LIMIT 3`  
+const blogRelatedImages = `SELECT bc.name as category_name, bc.slug as category_slug,YEAR(bp.created_at) as year_val, MONTH(bp.created_at) as month_val, bp.* from blog_posts bp INNER JOIN blog_categories bc ON bp.category_id = bc.id ORDER BY RAND() LIMIT 3` 
+
+const checkCartProductExist = `SELECT * FROM cart WHERE title = ? AND user_id = ?`
+
+const addProductToCart = `INSERT INTO cart (user_id, image, title, original_price, discounted_price, slug) VALUES (?,?,?,?,?,?)`
+
+
+
+
 
 module.exports = {
   users,
@@ -17,5 +25,8 @@ module.exports = {
   bookImages,
   blogImages,
   blogContent,
-  blogRelatedImages
+  blogRelatedImages,
+  checkCartProductExist,
+  addProductToCart,
+  
 };

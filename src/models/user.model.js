@@ -55,11 +55,35 @@ async function getRelatedBlogImages() {
     throw error;
   }
 }
+
+async function checkCartProduct(title, userId){
+ 
+  try {
+    const rows = await executeDbQuery(queries.checkCartProductExist, [title, userId]);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function addToCart(userId, imageUrl, title, originalPrice, discountedPrice, slug){
+ 
+  try {
+    const rows = await executeDbQuery(queries.addProductToCart, [userId, imageUrl, title, originalPrice, discountedPrice, slug]);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
 module.exports = {
   findAll,
   getSlider,
   getbookImages,
   getblogImages,
   getBlogContent,
-  getRelatedBlogImages
+  getRelatedBlogImages,
+  checkCartProduct,
+  addToCart
 };

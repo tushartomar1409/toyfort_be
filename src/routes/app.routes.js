@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require('../controllers/user.controller');
 const authController = require('../controllers/auth.controller');
 const productController = require('../controllers/product.controller')
+const authMiddleware = require('../middleware/auth.middleware')
 
 // Get all users
 router.get('/', userController.getAllUsers);
@@ -31,6 +32,41 @@ router.get("/related-posts", userController.blogRelatedImages);
 // Brand Product
 
 router.get("/brand-products", productController.brandProducts);
+
+// Add to cart
+
+router.post("/addToCart", authMiddleware, userController.addToCart);
+
+// Product details
+
+router.get("/:slug", productController.productDetails);
+
+// Product filter by discount
+router.get("/products/discount", productController.productDiscount);
+
+// Product filter by age
+router.get("/products/age", productController.productFilterByAge);
+
+
+// SideBar category filter
+
+router.get("/category/:category", (req, res) => {
+  if (req.query.brand) {
+    return productController.sideBarBrandFilter(req, res);
+  } else {
+    return productController.sideBarFilter(req, res);
+  }
+}) 
+
+// Get brand names
+
+router.get("/getbrand/name", productController.getBrand)
+
+router.get("/brandProducts/products", productController.getBrandProduct)
+
+
+
+
 
 
 module.exports = router; 
