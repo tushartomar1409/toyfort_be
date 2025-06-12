@@ -114,3 +114,119 @@ exports.getBrandProduct = async (req, res) => {
     console.log(error);
   }
 };
+
+
+exports.getCharacter = async (req, res) => {
+  try {
+    
+    const rows = await model.getCharacterName()
+    // console.log(rows);
+
+    res.json(rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+exports.getCharacterProduct = async (req, res) => {
+  try {
+    const character = req.query.character;
+    console.log(character);
+
+
+    const rows = await model.filterProductByChar(character)
+
+    console.log(rows);
+
+    res.json(rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+exports.productByGender = async (req, res) => {
+  try {
+    const { gender } = req.query;
+    console.log(gender)
+
+    const [rows] = await model.filterProductByGender(gender)
+    res.json(rows);
+  } catch (error) {
+    console.log("Error in fetching the products:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+
+exports.filterProductByPrice = async (req, res) => {
+  const p_min = req.query.p_min;
+  const p_max = req.query.p_max;
+
+  try {
+
+    const [rows] = await model.filterProductByPrice(p_min*100, p_max*100)
+    res.json(rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+exports.productOutOfStock = async (req, res) => {
+  try {
+    
+    const [rows] = await model.productOutofStock()
+
+    console.log(rows);
+
+    res.json(rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+exports.productInStock = async (req, res) => {
+  try {
+    
+    const [rows] = await model.productInStock()
+
+    console.log(rows);
+
+    res.json(rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+exports.getSubCategoryProduct = async (req, res) => {
+
+  try {
+    const { subcategory } = req.params;
+
+    // console.log(subcategory);
+
+    const [rows] = await model.filterProductBysubCategory(subcategory)
+
+    res.json(rows);
+  } catch (error) {
+    console.log("Error in fetching the product", error);
+  }
+};
+
+
+exports.getOutdoorProducts = async (req, res) => {
+
+  try {
+    const { toys } = req.params;
+
+    const [rows] = await model.getOutdoorProd(toys)
+
+    res.json(rows);
+  } catch (error) {
+    console.log("Error in fetching the product", error);
+  }
+};

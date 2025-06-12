@@ -75,6 +75,81 @@ async function brandProducts(brand){
   }
 }
 
+async function getCharacterName() {
+  try {
+    const rows = await executeDbQuery(queries.getCharacterName);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+async function filterProductByChar(character){
+  try{
+    const rows = await executeDbQuery(queries.getCharacterProduct,[character])
+    return rows
+  }catch(error){
+    throw error
+  }
+}
+
+
+async function filterProductByGender(gender){
+  try{
+    const rows = await executeDbQuery(queries.productByGender,[gender])
+    return rows
+  }catch(error){
+    throw error
+  }
+}
+
+
+async function filterProductByPrice(min,max){
+  try{
+    const rows = await executeDbQuery(queries.productByPrice,[min,max])
+    return rows
+  }catch(error){
+    throw error
+  }
+}
+
+async function productOutofStock(){
+  try{
+    const rows = await executeDbQuery(queries.productByOutofStock)
+    return rows
+  }catch(error){
+    throw error
+  }
+}
+
+async function productInStock(){
+  try{
+    const rows = await executeDbQuery(queries.productInStock)
+    return rows
+  }catch(error){
+    throw error
+  }
+}
+
+async function filterProductBysubCategory(subCategory){
+  try{
+    const rows = await executeDbQuery(queries.getSubCategoryProduct(subCategory))
+    return rows
+  }catch(error){
+    throw error
+  }
+}
+
+async function getOutdoorProd(toys){
+  try{
+    const rows = await executeDbQuery(queries.outdoorProducts,[toys])
+    return rows
+  }catch(error){
+    throw error
+  }
+}
+
 
 
 
@@ -86,6 +161,14 @@ module.exports = {
     sideBarFilter,
     sideBarBrandFilter,
     getBrandName,
-    brandProducts
+    brandProducts,
+    getCharacterName,
+    filterProductByChar,
+    filterProductByGender,
+    filterProductByPrice,
+    productOutofStock,
+    productInStock,
+    filterProductBysubCategory,
+    getOutdoorProd
     
 }

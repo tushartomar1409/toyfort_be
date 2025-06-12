@@ -64,6 +64,31 @@ router.get("/getbrand/name", productController.getBrand)
 
 router.get("/brandProducts/products", productController.getBrandProduct)
 
+// Get character names
+
+router.get('/products/characters', productController.getCharacter);
+
+
+router.get('/characterProducts/products', productController.getCharacterProduct);
+
+
+// filter product by gender
+
+router.get("/products/gender", productController.productByGender)
+
+// filter product by price
+
+router.get('/products/filter-by-price', productController.filterProductByPrice)
+
+router.get('/stock-products/out-stock', productController.productOutOfStock);
+
+router.get('/stock-products/in-stock', productController.productInStock);
+
+router.get('/category/:category/:subcategory', productController.getSubCategoryProduct)
+
+router.get('/toys/:toys', productController.getOutdoorProducts);
+
+
 
 
 
