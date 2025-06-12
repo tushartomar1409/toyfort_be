@@ -18,7 +18,7 @@ exports.productDetails = async (req, res) => {
     console.log("Received params:", req.params);
 
     const { slug } = req.params;
-    console.log("Slug",slug);
+    console.log("Slug", slug);
 
     const rows = await model.productDetails(slug);
 
@@ -36,7 +36,7 @@ exports.productDiscount = async (req, res) => {
     const { discount } = req.query;
     // console.log(discount)
 
-    const rows = await model.productOnDiscount(discount)
+    const rows = await model.productOnDiscount(discount);
 
     res.json(rows);
   } catch (error) {
@@ -44,14 +44,13 @@ exports.productDiscount = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
 
 exports.productFilterByAge = async (req, res) => {
   try {
     const { age } = req.query;
     // console.log(age)
 
-    const rows = await model.productOnAge(age)
+    const rows = await model.productOnAge(age);
 
     res.json(rows);
   } catch (error) {
@@ -60,12 +59,11 @@ exports.productFilterByAge = async (req, res) => {
   }
 };
 
-
 exports.sideBarFilter = async (req, res) => {
   try {
     const { category } = req.params;
 
-    const rows = await model.sideBarFilter(category)
+    const rows = await model.sideBarFilter(category);
     res.json(rows);
   } catch (error) {
     console.log("Error in fetching the products:", error.message);
@@ -78,7 +76,7 @@ exports.sideBarBrandFilter = async (req, res) => {
     const category = req.params.category;
     const brand = req.query.brand;
 
-    const rows = await model.sideBarBrandFilter(category,brand)
+    const rows = await model.sideBarBrandFilter(category, brand);
 
     res.json(rows);
   } catch (error) {
@@ -89,9 +87,8 @@ exports.sideBarBrandFilter = async (req, res) => {
 
 exports.getBrand = async (req, res) => {
   try {
-    
-    const rows = await model.getBrandName()
-    console.log(rows)
+    const rows = await model.getBrandName();
+    console.log(rows);
 
     res.json(rows);
   } catch (error) {
@@ -99,13 +96,12 @@ exports.getBrand = async (req, res) => {
   }
 };
 
-
 exports.getBrandProduct = async (req, res) => {
   try {
     const brand = req.query.brand;
     console.log(brand);
 
-    const rows = await model.brandProducts(brand)
+    const rows = await model.brandProducts(brand);
 
     console.log(rows);
 
@@ -115,11 +111,9 @@ exports.getBrandProduct = async (req, res) => {
   }
 };
 
-
 exports.getCharacter = async (req, res) => {
   try {
-    
-    const rows = await model.getCharacterName()
+    const rows = await model.getCharacterName();
     // console.log(rows);
 
     res.json(rows);
@@ -128,14 +122,12 @@ exports.getCharacter = async (req, res) => {
   }
 };
 
-
 exports.getCharacterProduct = async (req, res) => {
   try {
     const character = req.query.character;
     console.log(character);
 
-
-    const rows = await model.filterProductByChar(character)
+    const rows = await model.filterProductByChar(character);
 
     console.log(rows);
 
@@ -145,13 +137,12 @@ exports.getCharacterProduct = async (req, res) => {
   }
 };
 
-
 exports.productByGender = async (req, res) => {
   try {
     const { gender } = req.query;
-    console.log(gender)
+    console.log(gender);
 
-    const [rows] = await model.filterProductByGender(gender)
+    const [rows] = await model.filterProductByGender(gender);
     res.json(rows);
   } catch (error) {
     console.log("Error in fetching the products:", error.message);
@@ -159,25 +150,21 @@ exports.productByGender = async (req, res) => {
   }
 };
 
-
 exports.filterProductByPrice = async (req, res) => {
   const p_min = req.query.p_min;
   const p_max = req.query.p_max;
 
   try {
-
-    const [rows] = await model.filterProductByPrice(p_min*100, p_max*100)
+    const [rows] = await model.filterProductByPrice(p_min * 100, p_max * 100);
     res.json(rows);
   } catch (error) {
     console.log(error);
   }
 };
-
 
 exports.productOutOfStock = async (req, res) => {
   try {
-    
-    const [rows] = await model.productOutofStock()
+    const [rows] = await model.productOutofStock();
 
     console.log(rows);
 
@@ -186,12 +173,10 @@ exports.productOutOfStock = async (req, res) => {
     console.log(error);
   }
 };
-
 
 exports.productInStock = async (req, res) => {
   try {
-    
-    const [rows] = await model.productInStock()
+    const [rows] = await model.productInStock();
 
     console.log(rows);
 
@@ -201,15 +186,13 @@ exports.productInStock = async (req, res) => {
   }
 };
 
-
 exports.getSubCategoryProduct = async (req, res) => {
-
   try {
     const { subcategory } = req.params;
 
     // console.log(subcategory);
 
-    const [rows] = await model.filterProductBysubCategory(subcategory)
+    const [rows] = await model.filterProductBysubCategory(subcategory);
 
     res.json(rows);
   } catch (error) {
@@ -217,13 +200,11 @@ exports.getSubCategoryProduct = async (req, res) => {
   }
 };
 
-
 exports.getOutdoorProducts = async (req, res) => {
-
   try {
     const { toys } = req.params;
 
-    const [rows] = await model.getOutdoorProd(toys)
+    const [rows] = await model.getOutdoorProd(toys);
 
     res.json(rows);
   } catch (error) {

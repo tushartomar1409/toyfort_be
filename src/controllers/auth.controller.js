@@ -3,14 +3,18 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 // Generate JWT token
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+const generateToken = (userId) => {
+  return jwt.sign({ id : userId }, process.env.JWT_SECRET, {
     expiresIn: "30d"
   });
 };
 
 // Match user entered password to hashed password in database
 async function matchPassword(dbPassword, enteredPassword) {
+
+  if(!dbPassword){
+    throw new Error("dbPassword is null")
+  }
   const fixedHash = dbPassword.replace(/^\$2y\$/, '$2b$');
   return await bcrypt.compare(enteredPassword, fixedHash);
 };
@@ -18,6 +22,7 @@ async function matchPassword(dbPassword, enteredPassword) {
 // @desc    Register a new user
 // @route   POST /api/users
 // @access  Public
+
 exports.registerUser = async (req, res) => {
   try {
     const { fName, lName, email, password, confirmPassword } = req.body;
@@ -82,11 +87,13 @@ exports.registerUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     // Create user
+    console.log("HashedPassword:",hashedPassword);
+    
     const user = await model.createUser({
       fName,
       lName,
       email,
-      hashedPassword,
+      password:hashedPassword,
       phone
     });
 
@@ -99,10 +106,11 @@ exports.registerUser = async (req, res) => {
         success: true,
         data: {
           _id: user.id,
-          name: user.name,
+          name: user.fName,
           email: user.email,
           phone: user.phone,
-          role: user.role,
+          password:hashedPassword,
+          role: user.role || "user",
           token
         }
       });
@@ -112,13 +120,16 @@ exports.registerUser = async (req, res) => {
         message: "Invalid user data"
       });
     }
+
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Server error",
-      error: error
-    });
-  }
+  console.error(error);
+  res.status(500).json({
+    success: false,
+    message: "Server error",
+    error: error.message || "Unknown error"
+  });
+}
+
 };
 
 // @desc    Login user
@@ -137,6 +148,8 @@ exports.loginUser = async (req, res) => {
 
     // Check for user
     const user = await model.findUser(email);
+    console.log(user);
+    
 
     if (!user) {
       return res.status(401).json({
@@ -144,6 +157,9 @@ exports.loginUser = async (req, res) => {
         message: "User not found"
       });
     }
+
+    console.log("user details",user);
+    
 
     // Check password
     const isMatch = matchPassword(user.password, password);

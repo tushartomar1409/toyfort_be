@@ -15,6 +15,9 @@ async function findUser(email) {
 
 async function createUser(user) {
   try {
+
+    console.log("User insert details:",user);
+    
     const gSettings = await getGeneralSettings();
 
     const name = `${user.fName} ${user.lName}`;
@@ -44,7 +47,8 @@ async function createUser(user) {
       user.email, // email
       emailStatus, // email_status
       dbToken, // token
-      user.hashedPassword, // password
+      // user.hashedPassword, // password
+      user.password,
       role, // role_id
       userType, // user_type
       banned, // banned
