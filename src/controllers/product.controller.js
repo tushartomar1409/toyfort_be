@@ -190,7 +190,7 @@ exports.getSubCategoryProduct = async (req, res) => {
   try {
     const { subcategory } = req.params;
 
-    // console.log(subcategory);
+    // console.log("Sub-category: ", subcategory);
 
     const [rows] = await model.filterProductBysubCategory(subcategory);
 

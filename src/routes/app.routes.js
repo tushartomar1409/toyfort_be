@@ -36,43 +36,25 @@ router.get("/brand-products", productController.brandProducts);
 router.post("/addToCart", authMiddleware, userController.addToCart);
 
 // Get product from cart
-router.get(
-  "/user/getCartProducts",
-  authMiddleware,
-  userController.getCartProducts
-);
+router.get("/user/getCartProducts",authMiddleware,userController.getCartProducts);
 
 // Remove product from cart
-router.delete(
-  "/removeProduct/:slug",
-  authMiddleware,
-  userController.removeFromCart
-);
+router.delete("/removeProduct/:slug",authMiddleware,userController.removeFromCart);
 
 // Add to wishlist
 router.post("/add", authMiddleware, userController.addToWishlist);
 
 // Remove from wishlist
-router.delete(
-  "/remove/:slug",
-  authMiddleware,
-  userController.removeFromWishlist
-);
+router.delete("/remove/:slug",authMiddleware,userController.removeFromWishlist);
 
 // Get product from wishlist
 router.get("/user/wishlist", authMiddleware, userController.getWishlist);
 
 // Increase product quantity
-router.post(
-  "/increaseProductQuantity/:slug",
-  userController.increaseProductQuantity
-);
+router.post("/increaseProductQuantity/:slug",userController.increaseProductQuantity);
 
 // Decrease product quantity
-router.post(
-  "/decreaseProductQuantity/:slug",
-  userController.decreaseProductQuantity
-);
+router.post("/decreaseProductQuantity/:slug",userController.decreaseProductQuantity);
 
 // Product details
 router.get("/:slug", productController.productDetails);
@@ -120,10 +102,7 @@ router.get("/stock-products/out-stock", productController.productOutOfStock);
 router.get("/stock-products/in-stock", productController.productInStock);
 
 // Filter product by subcategory
-router.get(
-  "/category/:category/:subcategory",
-  productController.getSubCategoryProduct
-);
+router.get("/category/:category/:subcategory",productController.getSubCategoryProduct);
 
 // Filter to get outdoor-game products
 router.get("/toys/:toys", productController.getOutdoorProducts);

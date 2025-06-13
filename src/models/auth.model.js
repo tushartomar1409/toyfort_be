@@ -16,7 +16,7 @@ async function findUser(email) {
 async function createUser(user) {
   try {
 
-    console.log("User insert details:",user);
+    // console.log("User insert details:",user);
     
     const gSettings = await getGeneralSettings();
 

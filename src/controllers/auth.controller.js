@@ -25,6 +25,8 @@ async function matchPassword(dbPassword, enteredPassword) {
 
 exports.registerUser = async (req, res) => {
   try {
+    console.log("Req:",req.body);
+    
     const { fName, lName, email, password, confirmPassword } = req.body;
     let { phone } = req.body;
 
@@ -97,6 +99,9 @@ exports.registerUser = async (req, res) => {
       phone
     });
 
+    // console.log("User",user);
+    
+
     const token = generateToken(user._id);
     user.jwtToken = token;
     // user.save();
@@ -106,7 +111,7 @@ exports.registerUser = async (req, res) => {
         success: true,
         data: {
           _id: user.id,
-          name: user.fName,
+          name: user.first_name,
           email: user.email,
           phone: user.phone,
           password:hashedPassword,
