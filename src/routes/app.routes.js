@@ -11,6 +11,15 @@ router.get("/", userController.getAllUsers);
 // Login Route
 router.post("/login", authController.loginUser);
 
+// Change password
+router.post("/settings/change-password", authMiddleware, authController.changePassword);
+
+// Get profile
+router.get("/user/profile", authMiddleware, authController.getProfile);
+
+// update profile
+router.put("/user/update-profile", authMiddleware, authController.updateProfile);
+
 // Register Route
 router.post("/register", authController.registerUser);
 

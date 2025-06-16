@@ -174,7 +174,7 @@ exports.loginUser = async (req, res) => {
       success: true,
       data: {
         _id: user.id,
-        name: user.username,
+        name: user.first_name,
         email: user.email,
         role: user.role_id,
         token,
@@ -188,3 +188,95 @@ exports.loginUser = async (req, res) => {
     });
   }
 };
+
+exports.changePassword = async (req, res) => {
+  try {
+    const { old_password, password, confirm_password } = req.body;
+    const id = req.user?.id;
+
+    if (!id) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const user = await model.getUserById(id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isMatch = await matchPassword(user.password, old_password);
+
+    if (!isMatch) {
+      return res.status(401).json({ message: "Incorrect old password" });
+    }
+
+    if (password !== confirm_password) {
+      return res.status(400).json({ message: "Passwords do not match" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await model.updateUserPassword(id, hashedPassword);
+
+    return res.status(200).json({ message: "Password changed successfully" });
+  } catch (error) {
+    console.error("Error changing password:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
+exports.getProfile = async (req, res) => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized: No user ID" });
+    }
+
+    const user = await model.getUserProfile(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("Error fetching profile:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.updateProfile = async (req, res) => {
+  try {
+    const userId = req.user?.id;
+    console.log(userId);
+    
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const { first_name, last_name, email, phone_number } = req.body;
+
+    const currentUser = await model.getUserById(userId);
+
+    if (!currentUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    await model.updateUserProfile({
+      email,
+      first_name,
+      last_name,
+      phone_number,
+      id: userId,
+    });
+
+    return res.status(200).json({ success: true, message: "Profile Updated" });
+  } catch (error) {
+    console.error("Error in updating profile:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+

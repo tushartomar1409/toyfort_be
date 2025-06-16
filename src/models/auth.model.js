@@ -105,7 +105,37 @@ async function getGeneralSettings() {
   return settings;
 }
 
+
+async function getUserById(id) {
+  const result = await executeDbQuery(queries.getUserById, [id]);
+  return result[0];
+}
+
+async function updateUserPassword(id, hashedPassword) {
+  return await executeDbQuery(queries.updateUserPassword, [hashedPassword, id]);
+}
+
+async function getUserProfile(userId) {
+  const result = await executeDbQuery(queries.getUserProfile, [userId]);
+  return result[0]
+} 
+
+async function getUserId(id) {
+  const result = await executeDbQuery(queries.getUserById, [id]);
+  return result[0];
+}
+
+async function updateUserProfile({ email, first_name, last_name, phone_number, id }) {
+  await executeDbQuery(queries.updateUserProfile, [email,first_name,last_name,phone_number,
+   id,]);
+}
+
 module.exports = {
   findUser,
-  createUser
+  createUser,
+  getUserById,
+  updateUserPassword,
+  getUserProfile,
+  getUserId,
+  updateUserProfile
 };
