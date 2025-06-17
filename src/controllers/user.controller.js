@@ -289,3 +289,46 @@ exports.removeFromWishlist = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+exports.updateShippingAddress = async (req, res) => {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized: User ID missing" });
+    }
+
+    const {
+      title,
+      first_name,
+      last_name,
+      email,
+      phone_number,
+      address,
+      city,
+      state,
+      zip_code,
+    } = req.body;
+
+    const addressData = [
+      title,
+      first_name,
+      last_name,
+      email,
+      phone_number,
+      address,
+      city,
+      state,
+      zip_code,
+      userId,
+    ];
+
+    await model.insertShippingAddress(addressData);
+
+    return res.status(200).json({ success: true, message: "Address added" });
+  } catch (error) {
+    console.error("Error in inserting address:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+

@@ -65,6 +65,9 @@ router.post("/increaseProductQuantity/:slug",userController.increaseProductQuant
 // Decrease product quantity
 router.post("/decreaseProductQuantity/:slug",userController.decreaseProductQuantity);
 
+// Shipping-address
+router.post("/shipping-address/info", authMiddleware,userController.updateShippingAddress)
+
 // Product details
 router.get("/:slug", productController.productDetails);
 

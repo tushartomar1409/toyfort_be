@@ -148,7 +148,9 @@ async function removeWishlistItem(slug) {
   return await executeDbQuery(queries.deleteWishlistItemBySlug, [slug]);
 }
 
-
+async function insertShippingAddress(addressData) {
+  await executeDbQuery(queries.insertShippingAddress, addressData);
+}
 
 
 module.exports = {
@@ -170,4 +172,5 @@ module.exports = {
   getWishlistItemByTitle,
   getWishlistItemBySlug,
   removeWishlistItem,
+  insertShippingAddress
 };
