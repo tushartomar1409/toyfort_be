@@ -72,6 +72,9 @@ router.post("/shipping-address/info", authMiddleware,userController.updateShippi
 // get shipping address
 router.get('/get-shipping-address',authMiddleware,userController.getShippingAddress)
 
+// Delete shipping address
+router.delete('/delete-shipping-address/:id',userController.deleteShippingAddress)
+
 // Product details
 router.get("/:slug", productController.productDetails);
 

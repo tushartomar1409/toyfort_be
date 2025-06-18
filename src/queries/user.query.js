@@ -41,6 +41,8 @@ const insertShippingAddress = `INSERT INTO shipping_addresses (title ,first_name
 
 const getShippingAddress = `SELECT * FROM shipping_addresses where user_id = ?`
 
+const deleteAddress = `DELETE FROM shipping_addresses WHERE id = ?`
+
 module.exports = {
   users,
   getSliderImages,
@@ -61,5 +63,6 @@ module.exports = {
   getWishlistItemBySlug,
   deleteWishlistItemBySlug,
   insertShippingAddress,
-  getShippingAddress
+  getShippingAddress,
+  deleteAddress
 };
