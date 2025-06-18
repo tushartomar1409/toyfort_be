@@ -332,3 +332,26 @@ exports.updateShippingAddress = async (req, res) => {
   }
 };
 
+exports.getShippingAddress = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    // console.log("UserId", userId);
+
+    if (!userId) {
+      return res.status(401).json("Not authenticated");
+    }
+
+    const rows = await model.getShippingAddress(userId);
+    // console.log("Response",rows);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "Shipping address not found" });
+    }
+
+    res.json(rows[0]);
+  } catch (error) {
+    console.log(error.message);
+
+    res.status(500).json({ error: error.message });
+  }
+};

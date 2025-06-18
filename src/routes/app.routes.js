@@ -4,6 +4,7 @@ const userController = require("../controllers/user.controller");
 const authController = require("../controllers/auth.controller");
 const productController = require("../controllers/product.controller");
 const authMiddleware = require("../middleware/auth.middleware");
+const { use } = require("../app");
 
 // Get all users
 router.get("/", userController.getAllUsers);
@@ -67,6 +68,9 @@ router.post("/decreaseProductQuantity/:slug",userController.decreaseProductQuant
 
 // Shipping-address
 router.post("/shipping-address/info", authMiddleware,userController.updateShippingAddress)
+
+// get shipping address
+router.get('/get-shipping-address',authMiddleware,userController.getShippingAddress)
 
 // Product details
 router.get("/:slug", productController.productDetails);

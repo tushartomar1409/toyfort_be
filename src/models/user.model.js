@@ -152,6 +152,10 @@ async function insertShippingAddress(addressData) {
   await executeDbQuery(queries.insertShippingAddress, addressData);
 }
 
+async function getShippingAddress(userId){
+  return await executeDbQuery(queries.getShippingAddress,[userId])
+}
+
 
 module.exports = {
   findAll,
@@ -172,5 +176,6 @@ module.exports = {
   getWishlistItemByTitle,
   getWishlistItemBySlug,
   removeWishlistItem,
-  insertShippingAddress
+  insertShippingAddress,
+  getShippingAddress
 };

@@ -39,6 +39,8 @@ const deleteWishlistItemBySlug = `DELETE FROM wishlists WHERE slug = ?`;
 
 const insertShippingAddress = `INSERT INTO shipping_addresses (title ,first_name, last_name, email, phone_number, address,city, state_id, zip_code, user_id) VALUES (?, ?, ?, ?, ?, ?, ? , ?,?, ? )`;
 
+const getShippingAddress = `SELECT * FROM shipping_addresses where user_id = ?`
+
 module.exports = {
   users,
   getSliderImages,
@@ -58,5 +60,6 @@ module.exports = {
   getWishlistItemByTitle,
   getWishlistItemBySlug,
   deleteWishlistItemBySlug,
-  insertShippingAddress
+  insertShippingAddress,
+  getShippingAddress
 };
