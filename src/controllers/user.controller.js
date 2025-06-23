@@ -149,10 +149,10 @@ exports.getCartProducts = async (req, res) => {
   try {
     const id = req.user.id;
     console.log("UserId:", id);
-    // console.log("Request Body:", req.user)
+    console.log("Request Body:", req.user)
 
-    const [rows] = await model.getCartProd(id);
-    // console.log("Cart Products:", rows);
+    const rows = await model.getCartProd(id);
+    console.log("Cart Products:", rows);
 
     if (rows.length === 0) {
       return res.status(404).json({ message: "Cart is empty" });
@@ -413,3 +413,5 @@ exports.updateAddress = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
