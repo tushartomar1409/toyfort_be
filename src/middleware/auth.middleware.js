@@ -9,7 +9,7 @@ const authMiddleware = (req, res, next) => {
     // console.log("Decoded Token:", decoded);
 
     req.user = decoded;
-    console.log("Decode id: ",decoded.id);
+    // console.log("Decode id: ",decoded.id);
 
     if (!token) {
       return res.status(401).json({

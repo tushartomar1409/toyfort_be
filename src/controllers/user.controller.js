@@ -362,8 +362,54 @@ exports.deleteShippingAddress = async (req, res) => {
 
     await model.deleteShippingAddress(id);
 
-    return res.status(200).json({ message: "Address deleted" });
+    return res.status(200).json({ message: "Address successfully deleted!" });
   } catch (error) {
     res.status(500).json({ message: "Error in removing address", error });
+  }
+};
+
+exports.updateAddress = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ message: "Address ID is required" });
+    }
+
+    const existingAddress = await model.getShippingAddressById(id);
+
+    if (!existingAddress) {
+      return res.status(404).json({ message: "Address not found" });
+    }
+
+    const {
+      title,
+      first_name,
+      last_name,
+      email,
+      phone_number,
+      address,
+      city,
+      state,
+      zip_code,
+    } = req.body;
+
+    await model.updateShippingAddressById({
+      title,
+      first_name,
+      last_name,
+      email,
+      phone_number,
+      address,
+      city,
+      state,
+      zip_code,
+      id,
+    });
+
+    return res.status(200).json({ success: true, message: "Address updated" });
+  } catch (error) {
+    console.error("Error updating address:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };

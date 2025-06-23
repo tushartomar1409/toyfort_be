@@ -43,6 +43,11 @@ const getShippingAddress = `SELECT * FROM shipping_addresses where user_id = ?`
 
 const deleteAddress = `DELETE FROM shipping_addresses WHERE id = ?`
 
+const getShippingAddressById = `SELECT * FROM shipping_addresses where id = ?`
+
+const updateShippingAddressById = `UPDATE shipping_addresses SET title = ?, first_name = ?, last_name = ?, email = ?, phone_number = ?, address = ?, city = ?, state_id = ?, zip_code = ? WHERE id = ?`;
+
+
 module.exports = {
   users,
   getSliderImages,
@@ -64,5 +69,7 @@ module.exports = {
   deleteWishlistItemBySlug,
   insertShippingAddress,
   getShippingAddress,
-  deleteAddress
+  deleteAddress,
+  getShippingAddressById,
+  updateShippingAddressById
 };

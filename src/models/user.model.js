@@ -159,7 +159,38 @@ async function getShippingAddress(userId){
 async function deleteShippingAddress(id){
   return await executeDbQuery(queries.deleteAddress,[id])
 }
+async function getShippingAddressById(id) {
+  const result = await executeDbQuery(queries.getShippingAddressById, [id]);
+  return result[0];
+}
 
+async function updateShippingAddressById(data) {
+  const {
+    title,
+    first_name,
+    last_name,
+    email,
+    phone_number,
+    address,
+    city,
+    state,
+    zip_code,
+    id,
+  } = data;
+
+await executeDbQuery(queries.updateShippingAddressById, [
+    title,
+    first_name,
+    last_name,
+    email,
+    phone_number,
+    address,
+    city,
+    state,
+    zip_code,
+    id,
+  ]);
+}
 
 module.exports = {
   findAll,
@@ -182,5 +213,7 @@ module.exports = {
   removeWishlistItem,
   insertShippingAddress,
   getShippingAddress,
-  deleteShippingAddress
+  deleteShippingAddress,
+  getShippingAddressById,
+  updateShippingAddressById
 };
