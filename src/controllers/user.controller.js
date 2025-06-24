@@ -57,6 +57,8 @@ exports.bookImages = async (req, res) => {
 exports.blogImages = async (req, res) => {
   try {
     const users = await model.getblogImages();
+    // console.log(users);
+    
     return res.status(200).json({
       status: "success",
       data: users,
@@ -148,11 +150,11 @@ exports.addToCart = async (req, res) => {
 exports.getCartProducts = async (req, res) => {
   try {
     const id = req.user.id;
-    console.log("UserId:", id);
-    console.log("Request Body:", req.user)
+    // console.log("UserId:", id);
+    // console.log("Request Body:", req.user)
 
     const rows = await model.getCartProd(id);
-    console.log("Cart Products:", rows);
+    // console.log("Cart Products:", rows);
 
     if (rows.length === 0) {
       return res.status(404).json({ message: "Cart is empty" });

@@ -34,7 +34,7 @@ router.get("/book_images", userController.bookImages);
 router.get("/blog_images", userController.blogImages);
 
 // Individual Blog content
-router.get("/blog/:category_slug/:id", userController.blogContent);
+router.get("/blog-image/:category_slug/:id", userController.blogContent);
 
 // Blog related images
 router.get("/related-posts", userController.blogRelatedImages);
