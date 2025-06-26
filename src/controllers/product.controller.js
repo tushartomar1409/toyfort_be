@@ -142,7 +142,7 @@ exports.productByGender = async (req, res) => {
     const { gender } = req.query;
     console.log(gender);
 
-    const [rows] = await model.filterProductByGender(gender);
+    const rows = await model.filterProductByGender(gender);
     res.json(rows);
   } catch (error) {
     console.log("Error in fetching the products:", error.message);
@@ -155,7 +155,7 @@ exports.filterProductByPrice = async (req, res) => {
   const p_max = req.query.p_max;
 
   try {
-    const [rows] = await model.filterProductByPrice(p_min * 100, p_max * 100);
+    const rows = await model.filterProductByPrice(p_min * 100, p_max * 100);
     res.json(rows);
   } catch (error) {
     console.log(error);
@@ -164,7 +164,7 @@ exports.filterProductByPrice = async (req, res) => {
 
 exports.productOutOfStock = async (req, res) => {
   try {
-    const [rows] = await model.productOutofStock();
+    const rows = await model.productOutofStock();
 
     console.log(rows);
 
@@ -176,7 +176,7 @@ exports.productOutOfStock = async (req, res) => {
 
 exports.productInStock = async (req, res) => {
   try {
-    const [rows] = await model.productInStock();
+    const rows = await model.productInStock();
 
     console.log(rows);
 

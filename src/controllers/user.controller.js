@@ -32,8 +32,10 @@ exports.getSliderImage = async (req, res) => {
       message: "Failed to fetch users",
     });
   }
+  
 };
-
+// 2  3  4   5  6   7   8  9
+// 38 57 76 95 114 133 152 171
 // Get books images
 
 exports.bookImages = async (req, res) => {
@@ -50,7 +52,7 @@ exports.bookImages = async (req, res) => {
       message: "Failed to fetch users",
     });
   }
-};
+}
 
 // Get blog images
 
