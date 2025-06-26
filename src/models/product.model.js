@@ -133,8 +133,7 @@ async function productInStock() {
 async function filterProductBysubCategory(subCategory) {
   try {
     const rows = await executeDbQuery(
-      queries.getSubCategoryProduct(subCategory)
-    );
+      queries.getSubCategoryProduct,[subCategory]);
     return rows;
   } catch (error) {
     throw error;
